@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Sep 28 16:47:25 IST 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0183-83d0-d86a-000023427800 
+on database directory memory:/home/mahadev/Desktop/Mahadev-product/vivahspot1/vivahspot/recomendation-service/07275e6e-4cad-47c0-8e4b-06df7168de16 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@75b84c92 
+Loaded from file:/home/mahadev/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Ubuntu
+java.runtime.version=11.0.16+8-post-Ubuntu-0ubuntu120.04
+user.dir=/home/mahadev/Desktop/Mahadev-product/vivahspot1/vivahspot/recomendation-service
+os.name=Linux
+os.arch=amd64
+os.version=5.11.0-051100-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
