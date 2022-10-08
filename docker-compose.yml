@@ -1,0 +1,141 @@
+version: '3'
+services:
+  vivahspot-mysql:
+    image: mysql:latest
+    volumes:
+      - "./.mysql-data/db:/var/lib/mysql"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: CSlayer25AUG@
+      MYSQL_DATABASE: user
+      
+  vivahspot-mongo:
+    ports:
+      - '27017:27017'
+    restart: always
+    image: mongo:latest
+    volumes:
+      - ~/apps/mongo:/data/db
+  
+  vivahspot-rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - '5551:5551'
+      - '5552:5552'
+      - '5672:5672'
+      - '25672:25672'
+      - '15672:15672'
+    volumes:
+      - /docker_conf/rabbitmq/data/:/var/lib/rabbitmq/
+    restart: always
+      
+  config-server:
+    build: config-server/
+    container_name: config-server
+    restart: on-failure
+    network_mode: host
+    hostname: localhost
+    ports:
+    - 8888:8888
+    
+  eureka-server:
+    build: eureka-server/
+    container_name: eureka-server
+    depends_on:
+      - config-server
+    restart: on-failure
+    network_mode: host
+    hostname: localhost
+    ports:
+    - 8076:8076
+    
+  api-gateway:
+    build: api-gateway/
+    container_name: api-gateway
+    depends_on:
+      - config-server
+    restart: on-failure
+    network_mode: host
+    hostname: localhost
+    ports:
+    - 8086:8086
+    
+  authentication-service:
+    build: authentication-service/
+    container_name: authentication-service
+    depends_on:
+      - eureka-server
+    restart: on-failure
+    network_mode: host
+    hostname: localhost
+    ports:
+    - 8787:8787
+    
+  user-service:
+    build: user-service/
+    container_name: user-service
+    depends_on:
+      - eureka-server
+    restart: on-failure
+    network_mode: host
+    hostname: localhost
+    ports:
+    - 8901:8901
+    
+  venue-service:
+    build: venue-service/
+    container_name: venue-service
+    depends_on:
+      - eureka-server
+    restart: on-failure
+    network_mode: host
+    hostname: localhost
+    ports:
+    - 8089:8089
+  
+  recomendation-service:
+    build: recomendation-service/
+    container_name: recomendation-service
+    depends_on:
+      - eureka-server
+    restart: on-failure
+    network_mode: host
+    hostname: localhost
+    ports:
+    - 8081:8081
+    
+  booking-service:
+    build: booking-service/
+    container_name: booking-service
+    depends_on:
+      - eureka-server
+    restart: on-failure
+    network_mode: host
+    hostname: localhost
+    ports:
+    - 8090:8090
+    
+  payment-service:
+    build: payment-service/
+    container_name: payment-service
+    depends_on:
+      - eureka-server
+    restart: on-failure
+    network_mode: host
+    hostname: localhost
+    ports:
+    - 8082:8082
+    
+  email-service:
+    build: email-service/
+    container_name: email-service
+    depends_on:
+      - eureka-server
+    restart: on-failure
+    network_mode: host
+    hostname: localhost
+    ports:
+    - 8092:8092
+    
